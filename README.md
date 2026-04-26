@@ -52,7 +52,7 @@ This should show a status of db, app, and web. db and app will show a status of 
 
 ## Lab 13: Kubernetes and Desired State
 
-The application from Lab 12 has been migrated from Docker Compose to Kubernetes using k3s, a lightweight Kubernetes distribution. Instead of managing containers directly, the application is now declared as Kubernetes Deployments and Services, giving it self-healing capabilities and desired state management.
+The application from Lab 12 has been migrated from Docker Compose to Kubernetes using k3s, a lightweight Kubernetes distribution. Instead of managing containers directly, the application is now declared as Kubernetes Deployments and Services, giving it self healing capabilities and desired state management.
 
 ## Deploying to Kubernetes
 
