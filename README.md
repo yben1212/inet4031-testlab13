@@ -57,13 +57,13 @@ The application from Lab 12 has been migrated from Docker Compose to Kubernetes 
 ## Deploying to Kubernetes
 
 1. Create the namespace and secret:
-kubectl create namespace ticket-app
-bash create-secret.sh
+- kubectl create namespace ticket-app
+- bash create-secret.sh
 3. Apply the Kubernetes manifests:
-kubectl apply -f k8s/
+- kubectl apply -f k8s/
 4. Verify all pods are running:
-kubectl get pods -n ticket-app
+- kubectl get pods -n ticket-app
 
 ## Accessing the Dashboard
 Open a browser and navigate to:
-http://<192.168.56.10>:30080
+- http://<192.168.56.10>:30080
