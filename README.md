@@ -18,29 +18,52 @@ The application code and scaffolding are provided. Your job is to complete the D
 
 # Project Overview
 
-<!-- Briefly describe what this application does in your own words.
-     What problem does it solve? What does a user interact with? -->
+This application is a three tier ticket tracking system. There is a web interface that is created by Apache that users can interact with to create and view support tickets. Apache forwards the requests to Flask, which reads and writes ticket data to a MariaDB database. All of the components run in seperate Docker containers.
 
 # Prerequisites
 
-<!-- List what needs to be installed or configured on the VM before this lab
-     will work. Include Docker, Docker Compose, and anything else required. -->
+- Docker
+- Docker Compose
+- A .env file with your own credentials
 
 # Getting Started
 
-<!-- Explain how a new teammate would bring this stack up from a fresh clone.
-     Walk through every command they need to run, in order. -->
+1. Clone the repository
+2. Copy the example environment file and fill in your credentials:
+   cp .env.example .env
+   nano .env
+3. run 'docker compose up --build' to build and start the stack
+4. Open a browser and navigate to http://localhost
 
 # Configuration
 
-<!-- Explain the .env file: what it is, what variables it contains,
-     and what a teammate needs to provide that is not in this repository. -->
+Docker Compose reads credentials from a .env file that is not committed to the repository because it contains passwords. You will need to create your own .env file using .env.example as a template and fill in the following:
+- DB_ROOT_PASSWORD - password for MariaDB
+- DB_NAME - name of the database
+- DB_USER - database user for Flask to connect with
+- DB_PASSWORD - password for the database user
 
 # Verification
 
-<!-- Describe how to confirm the stack is running correctly.
-     Reference the check script and what a passing run looks like. -->
+To verify if the stack is running properly, check that all three containers are healthy using:
+- docker compose ps
+  
+This should show a status of db, app, and web. db and app will show a status of 'Up' and 'healthy', while web will only show 'Up' since it does not have a healthcheck.
 
-# Feedback (Optional)
+## Lab 13: Kubernetes and Desired State
 
-<!-- Do you have any feedback you would like to give us after completing this lab? What are some things you enjoyed? What about others that you felt was lackluster? Or maybe there was something that we missed that you'd love for us to touch on! This will help us improve the INET 4031 lab experience. We appreciate everything we can get!  -->
+The application from Lab 12 has been migrated from Docker Compose to Kubernetes using k3s, a lightweight Kubernetes distribution. Instead of managing containers directly, the application is now declared as Kubernetes Deployments and Services, giving it self-healing capabilities and desired state management.
+
+## Deploying to Kubernetes
+
+1. Create the namespace and secret:
+kubectl create namespace ticket-app
+bash create-secret.sh
+3. Apply the Kubernetes manifests:
+kubectl apply -f k8s/
+4. Verify all pods are running:
+kubectl get pods -n ticket-app
+
+## Accessing the Dashboard
+Open a browser and navigate to:
+http://<192.168.56.10>:30080
